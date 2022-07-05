@@ -1,0 +1,9 @@
+cp -rf /data/fabric-samples-gm/test-network/organizations/peerOrganizations/ /data/gopath/src/fabric-sdk-demo/fixtures/crypto-config
+
+cp -rf /data/fabric-samples-gm/test-network/organizations/ordererOrganizations/ /data/gopath/src/fabric-sdk-demo/fixtures/crypto-config
+
+cp /data/fabric-samples-gm/test-network/channel-artifacts/mychannel.tx /data/gopath/src/fabric-sdk-demo/fixtures/channel-artifacts/
+
+cp /data/fabric-samples-gm/test-network/channel-artifacts/Org1MSPanchors.tx /data/gopath/src/fabric-sdk-demo/fixtures/channel-artifacts/
+
+cp /data/fabric-samples-gm/test-network/channel-artifacts/Org2MSPanchors.tx /data/gopath/src/fabric-sdk-demo/fixtures/channel-artifacts/
