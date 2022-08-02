@@ -1,4 +1,3 @@
-
 package sdkInit
 
 import (
@@ -149,38 +148,38 @@ func CreateCCLifecycle(info *SdkEnvInfo, sequence int64, upgrade bool, sdk *fabs
 	fmt.Println(">> 安装链码成功")
 
 	// Approve cc
-	fmt.Println(">> 组织认可智能合约定义......")
+	fmt.Println(">> 组织批准智能合约定义......")
 	if err := approveCC(packageID, info.ChaincodeID, info.ChaincodeVersion, sequence, info.ChannelID, info.Orgs, info.OrdererEndpoint); err != nil {
 		return fmt.Errorf("approveCC error: %v", err)
 	}
 
 	// Query approve cc
-	if err:=queryApprovedCC(info.ChaincodeID, sequence, info.ChannelID, info.Orgs);err!=nil{
+	if err := queryApprovedCC(info.ChaincodeID, sequence, info.ChannelID, info.Orgs); err != nil {
 		return fmt.Errorf("queryApprovedCC error: %v", err)
 	}
-	fmt.Println(">> 组织认可智能合约定义完成")
+	fmt.Println(">> 组织批准智能合约定义完成")
 
 	// Check commit readiness
 	fmt.Println(">> 检查智能合约是否就绪......")
-	if err:=checkCCCommitReadiness(packageID, info.ChaincodeID, info.ChaincodeVersion, sequence, info.ChannelID, info.Orgs); err!=nil{
+	if err := checkCCCommitReadiness(packageID, info.ChaincodeID, info.ChaincodeVersion, sequence, info.ChannelID, info.Orgs); err != nil {
 		return fmt.Errorf("checkCCCommitReadiness error: %v", err)
 	}
 	fmt.Println(">> 智能合约已经就绪")
 
 	// Commit cc
 	fmt.Println(">> 提交智能合约定义......")
-	if err:=commitCC(info.ChaincodeID, info.ChaincodeVersion, sequence, info.ChannelID, info.Orgs, info.OrdererEndpoint);err!=nil{
+	if err := commitCC(info.ChaincodeID, info.ChaincodeVersion, sequence, info.ChannelID, info.Orgs, info.OrdererEndpoint); err != nil {
 		return fmt.Errorf("commitCC error: %v", err)
 	}
 	// Query committed cc
-	if err:=queryCommittedCC(info.ChaincodeID, info.ChannelID, sequence, info.Orgs); err!=nil{
+	if err := queryCommittedCC(info.ChaincodeID, info.ChannelID, sequence, info.Orgs); err != nil {
 		return fmt.Errorf("queryCommittedCC error: %v", err)
 	}
 	fmt.Println(">> 智能合约定义提交完成")
 
 	// Init cc
 	fmt.Println(">> 调用智能合约初始化方法......")
-	if err:=initCC(info.ChaincodeID, upgrade, info.ChannelID, info.Orgs[0], sdk); err!=nil{
+	if err := initCC(info.ChaincodeID, upgrade, info.ChannelID, info.Orgs[0], sdk); err != nil {
 		return fmt.Errorf("initCC error: %v", err)
 	}
 	fmt.Println(">> 完成智能合约初始化")
@@ -287,18 +286,19 @@ func approveCC(packageID string, ccName, ccVersion string, sequence int64, chann
 		InitRequired:      true,
 	}
 
-	for _, org := range orgs{
+	for _, org := range orgs {
 		orgPeers, err := DiscoverLocalPeers(*org.OrgAdminClientContext, org.OrgPeerNum)
 		fmt.Printf(">>> chaincode approved by %s peers:\n", org.OrgName)
 		for _, p := range orgPeers {
 			fmt.Printf("	%s\n", p.URL())
 		}
 
-		if err!=nil{
+		if err != nil {
 			return fmt.Errorf("DiscoverLocalPeers error: %v", err)
 		}
-		if _, err := org.OrgResMgmt.LifecycleApproveCC(channelID, approveCCReq, resmgmt.WithTargets(orgPeers...), resmgmt.WithOrdererEndpoint(ordererEndpoint), resmgmt.WithRetry(retry.DefaultResMgmtOpts));err != nil {
-			fmt.Errorf("LifecycleApproveCC error: %v", err)
+		fmt.Println(">>> orgPeers.url:", orgPeers[0].URL())
+		if _, err := org.OrgResMgmt.LifecycleApproveCC(channelID, approveCCReq, resmgmt.WithTargets(orgPeers...), resmgmt.WithOrdererEndpoint(ordererEndpoint), resmgmt.WithRetry(retry.DefaultResMgmtOpts)); err != nil {
+			return fmt.Errorf("LifecycleApproveCC error: %v", err)
 		}
 	}
 	return nil
@@ -310,9 +310,9 @@ func queryApprovedCC(ccName string, sequence int64, channelID string, orgs []*Or
 		Sequence: sequence,
 	}
 
-	for _, org := range orgs{
+	for _, org := range orgs {
 		orgPeers, err := DiscoverLocalPeers(*org.OrgAdminClientContext, org.OrgPeerNum)
-		if err!=nil{
+		if err != nil {
 			return fmt.Errorf("DiscoverLocalPeers error: %v", err)
 		}
 		// Query approve cc
@@ -329,7 +329,7 @@ func queryApprovedCC(ccName string, sequence int64, channelID string, orgs []*Or
 			if err != nil {
 				return fmt.Errorf("Org %s Peer %s NewInvoker error: %v", org.OrgName, p.URL(), err)
 			}
-			if resp==nil{
+			if resp == nil {
 				return fmt.Errorf("Org %s Peer %s Got nil invoker", org.OrgName, p.URL())
 			}
 		}
@@ -344,8 +344,8 @@ func checkCCCommitReadiness(packageID string, ccName, ccVersion string, sequence
 	}
 	ccPolicy := policydsl.SignedByNOutOfGivenRole(int32(len(mspIds)), mb.MSPRole_MEMBER, mspIds)
 	req := resmgmt.LifecycleCheckCCCommitReadinessRequest{
-		Name:              ccName,
-		Version:           ccVersion,
+		Name:    ccName,
+		Version: ccVersion,
 		//PackageID:         packageID,
 		EndorsementPlugin: "escc",
 		ValidationPlugin:  "vscc",
@@ -353,9 +353,9 @@ func checkCCCommitReadiness(packageID string, ccName, ccVersion string, sequence
 		Sequence:          sequence,
 		InitRequired:      true,
 	}
-	for _, org := range orgs{
+	for _, org := range orgs {
 		orgPeers, err := DiscoverLocalPeers(*org.OrgAdminClientContext, org.OrgPeerNum)
-		if err!=nil{
+		if err != nil {
 			fmt.Errorf("DiscoverLocalPeers error: %v", err)
 		}
 		for _, p := range orgPeers {
@@ -379,7 +379,7 @@ func checkCCCommitReadiness(packageID string, ccName, ccVersion string, sequence
 			if err != nil {
 				return fmt.Errorf("NewInvoker error: %v", err)
 			}
-			if resp==nil{
+			if resp == nil {
 				return fmt.Errorf("Got nill invoker response")
 			}
 		}
@@ -388,7 +388,7 @@ func checkCCCommitReadiness(packageID string, ccName, ccVersion string, sequence
 	return nil
 }
 
-func commitCC(ccName, ccVersion string, sequence int64, channelID string, orgs []*OrgInfo, ordererEndpoint string) error{
+func commitCC(ccName, ccVersion string, sequence int64, channelID string, orgs []*OrgInfo, ordererEndpoint string) error {
 	mspIDs := []string{}
 	for _, org := range orgs {
 		mspIDs = append(mspIDs, org.OrgMspId)
@@ -411,14 +411,14 @@ func commitCC(ccName, ccVersion string, sequence int64, channelID string, orgs [
 	return nil
 }
 
-func queryCommittedCC( ccName string, channelID string, sequence int64, orgs []*OrgInfo) error {
+func queryCommittedCC(ccName string, channelID string, sequence int64, orgs []*OrgInfo) error {
 	req := resmgmt.LifecycleQueryCommittedCCRequest{
 		Name: ccName,
 	}
 
 	for _, org := range orgs {
 		orgPeers, err := DiscoverLocalPeers(*org.OrgAdminClientContext, org.OrgPeerNum)
-		if err!=nil{
+		if err != nil {
 			return fmt.Errorf("DiscoverLocalPeers error: %v", err)
 		}
 		for _, p := range orgPeers {
@@ -442,9 +442,9 @@ func queryCommittedCC( ccName string, channelID string, sequence int64, orgs []*
 				},
 			)
 			if err != nil {
-				return  fmt.Errorf("NewInvoker error: %v", err)
+				return fmt.Errorf("NewInvoker error: %v", err)
 			}
-			if resp==nil{
+			if resp == nil {
 				return fmt.Errorf("Got nil invoker response")
 			}
 		}

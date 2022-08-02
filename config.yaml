@@ -41,20 +41,14 @@ client:
 
 
 channels:
-
-
-
   # multi-org test channel
   mychannel:
-
-
     peers:
       peer0.org1.example.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
-
 
       peer0.org2.example.com:
         endorsingPeer: true
@@ -142,7 +136,7 @@ orderers:
 
   orderer.example.com:
     # [Optional] Default: Infer from hostname
-    url: 106.75.107.152:7050
+    url: orderer.example.com:7050
 
     # these are standard properties defined by the gRPC library
     # they will be passed in as-is to gRPC client constructor
@@ -172,7 +166,7 @@ peers:
   peer0.org1.example.com:
     # this URL is used to send endorsement and query requests
     # [Optional] Default: Infer from hostname
-    url: 106.75.107.152:7051
+    url: peer0.org1.example.com:7051
     grpcOptions:
       # ssl-target-name-override: peer0.org1.example.com
       ssl-target-name-override: peer0.org1.example.com
@@ -192,9 +186,8 @@ peers:
       # Certificate location absolute path
       path: /data/gopath/src/fabric-sdk-demo/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
-
   peer0.org2.example.com:
-    url: 106.75.107.152:9051
+    url: peer0.org2.example.com:9051
     #grpcOptions:
     #  ssl-target-name-override: peer0.org1.example.com
     grpcOptions:
@@ -211,8 +204,6 @@ peers:
       allow-insecure: false
     tlsCACerts:
       path: /data/gopath/src/fabric-sdk-demo/fixtures/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
-
-
 
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows

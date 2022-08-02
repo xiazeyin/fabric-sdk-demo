@@ -974,12 +974,6 @@ github.com/xiazeyin/fabric-config-gm v0.0.0-20220524082816-d8436d264ce6 h1:2RSzs
 github.com/xiazeyin/fabric-config-gm v0.0.0-20220524082816-d8436d264ce6/go.mod h1:SU6/u4A9xxaYbJfuRXzI63HsPBViHEPKlSQ6YT3GCDc=
 github.com/xiazeyin/fabric-protos-go-gm v0.0.0-20220524081341-f40c99473c61 h1:cJkPK30gk/fW2L0AzcdJwVi/dl4jD4eb7Y3T2sSfxGU=
 github.com/xiazeyin/fabric-protos-go-gm v0.0.0-20220524081341-f40c99473c61/go.mod h1:ap8lXSeDbbVOuAhTy76m13liD1I9uCCtFOCmz31pqK4=
-github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220620182436-8c26da616ac2 h1:YlhzxijxMvCSukumKRPlVBp9VuGMuQZH5c3wZfXOxbA=
-github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220620182436-8c26da616ac2/go.mod h1:mNzisTiFi8XChD5O1+IraF8ta7Cz3T7wa38Kc/3mWLo=
-github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220625114424-2b2ba99dfa0a h1:w5cZcska+OSGnpnARNjFD8b50g8BWeVed2knHIVYu2E=
-github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220625114424-2b2ba99dfa0a/go.mod h1:mNzisTiFi8XChD5O1+IraF8ta7Cz3T7wa38Kc/3mWLo=
-github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220625115023-65e0ee59aa02 h1:7N1qFJf/Uy0aLWRo+kAjs3WfCbNoeAevKbAbI7rJlMM=
-github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220625115023-65e0ee59aa02/go.mod h1:mNzisTiFi8XChD5O1+IraF8ta7Cz3T7wa38Kc/3mWLo=
 github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220625115451-b9534c8a4179 h1:9T2kaQeRi2VFZ8UN22Qe4FLXTQo+7uwL++SRCSRNMtQ=
 github.com/xiazeyin/fabric-sdk-go-gm v0.0.0-20220625115451-b9534c8a4179/go.mod h1:mNzisTiFi8XChD5O1+IraF8ta7Cz3T7wa38Kc/3mWLo=
 github.com/xiazeyin/gmgo v0.0.0-20220524080332-30d9ca7379fe h1:lEdUyyBNEeUQpTfairjzszYA/5bKMpr/uHNoYVrjpdE=
